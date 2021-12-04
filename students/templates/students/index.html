@@ -1,0 +1,87 @@
+{% extends "students/base.html" %}
+
+{% block title %} Students Page {% endblock %}
+{% block body %}
+
+<div class="container mt-5">
+    <h2>Welcome! <i class="far fa-smile-beam" style="color: #4169e1;" ></i></h2>
+    <h3>Hello, hardworking <strong>{{ user.username }}</strong> !</h3>
+</div>
+<div class="container mt-5">
+    <h2 style="text-align: center;"><i class="fas fa-user-edit" style="color: #4169e1;"></i> My Lessons</h2>
+    <a href="{% url 'mychart' %}" class="btn btn-primary" role="button">My Chart</a>
+    <a href="{% url 'myword' %}" class="btn btn-warning" role="button">My Word</a>
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">student</th>
+                <th scope="col">course</th>
+                <th scope="col">teacher</th>
+                <th scope="col">textbook</th>
+                <th scope="col">page</th>
+                <th scope="col">score</th>
+                <th scope="col">comment</th>
+                <th scope="col">created</th>
+                <th scope="col">updated</th>
+                <th scope="col">completed</th>
+                </tr>
+            </thead>
+            {% for lesson in object_list %}
+            <tbody>
+                <tr>
+                <td>{{ lesson.id }}</td>
+                <td>{{ lesson.student }}</td>
+                <td>{{ lesson.course }}</td>
+                <td>{{ lesson.teacher }}</td>
+                <td>{{ lesson.textbook }}</td>
+                <td>{{ lesson.page }}</td>
+                <td>{{ lesson.score }}</td>
+                <td>{{ lesson.comment }}</td>
+                <td>{{ lesson.created }}</td>
+                <td>{{ lesson.updated }}</td>
+                <td>{{ lesson.completed }}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+            </table>
+</div>
+
+<nav aria-label="Page navigation example">
+
+    <ul class="pagination justify-content-center pagination-lg g-mt-28 g-mb-28">
+        <!-- Previous -->
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% endif %}
+
+        <!-- Numbers -->
+        {% for num in page_obj.paginator.page_range %}
+            {% if num <= page_obj.number|add:5 and num >= page_obj.number|add:-5 %}
+
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><a class="page-link" href="#">{{ num }}</a></li>
+                {% else %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+
+        <!-- Next -->
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+
+</nav>
+
+{% endblock %}
+

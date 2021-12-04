@@ -1,0 +1,33 @@
+#header {
+  background: #3333cc;
+  color: #ffff00;
+}
+
+h1 {
+  color: #0c2d48;
+}
+
+#container > div.breadcrumbs {
+  background: #00ccff;
+}
+
+#login-form > div.submit-row > input[type=submit] {
+  background-color: #3333cc;
+}
+  
+#header a:link, #header a:visited {
+  color: white;
+}
+
+#branding h1, #branding h1 a:visited, #branding h1 a:link {
+  color: #f5de11;
+}
+  
+.module h2, .module caption, .inline-group h2 {
+  background: #3333cc;
+  color: white;
+}
+  
+a.section:link, a.section:visited {
+  color: white;
+}

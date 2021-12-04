@@ -1,0 +1,88 @@
+{% extends "students/base.html" %}
+
+{% block title %} My Chart {% endblock %}
+
+{% block jquery %}
+<script>
+$(document).ready(function(){
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Completed', 'Tasks'],
+        datasets: [{
+            label: 'Your Achievements',
+            data: [{{ completed | safe }}, {{ tasks | safe }}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1
+            }
+        }
+    }
+});
+
+})  
+</script>
+{% endblock %}
+
+
+{% load static %}
+{% block body %}
+<div class="container">
+    <h2 style="text-align: center;">Your Wonderful Achievements!! <i class="far fa-smile-beam" style="color: #4169e1;" ></i></h2>
+    <h3 style="text-align: center;">Keep going, <span id="word">{{ word.word_eng }}:{{ word.word_jap }} </span><strong>{{ user.username }}</strong> !</h3>
+</div>
+<hr>
+<div class="container">
+    <div class='row'>
+        <div class='col-sm-4'>
+            <div class="card">
+                <img src="{% static 'images/study.jpg' %}" class="card-img-top" alt="..."/>
+                <div class="card-body">
+                    <h5 class="card-title">Your Scores</h5>
+                    <p class="card-text">You've completed {{ completed }} pages out of {{ tasks }} so far.</p>
+                    <p class="card-text" id="word">Highest Score: {{ max_score }}</p>
+                    <p class="card-text">Average Score: {{ ave_score }}</p>
+                    <a href="https://www.supersaas.jp/schedule/login/askg946/reserveclass" class="btn btn-info">Book Lessons</a>
+                </div>
+            </div>         
+        </div>
+        <div class='col-sm-4'>
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
+        <div class='col-sm-4'>
+            <div class="card">
+                <img src="{% static 'images/apple.jpg' %}" class="card-img-top" alt="..."/>
+                <div class="card-body">
+                    <h5 class="card-title">Your Teachers</h5>
+                        {% for key, value in teacher_count.items %}
+                            <ul>
+                                <li>{{ key }} - {{ value }}</li>
+                            </ul>
+                        {% endfor %}
+                    <h5 class="card-title">Your Textbooks and Pages</h5>
+                        {% for key, value in textbook_count.items %}
+                            <ul>
+                                <li>{{ key }} - {{ value }}</li>
+                            </ul>
+                        {% endfor %}
+                    <a href="https://ask946.com/text-2020/" class="btn btn-info">Buy Textbooks</a>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>
+{% endblock %}

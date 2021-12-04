@@ -1,0 +1,62 @@
+{% extends 'students/base.html' %}
+
+{% block title %} My Word List {% endblock %}
+
+
+{% block body %}
+<div class="container mt-5">
+    <h2 style="text-align: center;">Words to Remember!! <i class="far fa-smile-beam" style="color: #4169e1;" ></i></h2>
+    <h3 style="text-align: center;">This is <strong id="word">{{ user.username }}'s New Word List</strong> !</h3>
+</div>
+<hr>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-4">
+            <h4 class="text-center alert alert-info">Add New Word</h4>
+            <form action="/add_word/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="editid" id="editid" />
+                {{ form.as_p }}
+                <input type="button" class="btn btn-info" id="btnsave" value="Save">
+            </form>
+            <hr>
+            <div id="msg" class="alert alert-warning" style="display: none"></div>
+        </div>
+        
+        <div class="col-sm-8">
+            <h4 class="text-center alert alert-info">Word List</h4>
+            <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">New Word</th>
+                    <th scope="col">Meaning</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            {% for item in qs %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.new_word }}</td>
+                    <td>{{ item.meaning }}</td>
+                    <td>
+                        <input type="button" data-sid="{{ item.id }}" class="btn btn-outline-info btn-sm btn-edit" value="Edit">
+                        <input type="button" data-sid="{{ item.id }}" class="btn btn-outline-danger btn-sm btn-del" value="Delete">
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>  
+{% endblock %}
+
+{% block jquery %}
+    {% include "students/ajax.html" %}
+{% endblock %}
+
+
+
