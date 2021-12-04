@@ -1,6 +1,7 @@
 # ManyToMany MECE Lesson Report
 
-
+* [Click here for Demo Video](https://youtu.be/NVEAUlAXwg0)
+* [Click here for cs50 Official site](https://cs50.harvard.edu/web/2020/projects/final/capstone/)
 ## Objectives:
 1. Offer **MECE** lessons to students of **various levels/ages** who take classes at random dates.
 2. Simplify lesson plan, reporting tasks, track student progress and create personal-word-learning-app with **Django and javascript**
